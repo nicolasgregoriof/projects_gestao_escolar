@@ -2,45 +2,47 @@
 ## 3. Modelo de domínio
 ```plantuml
 @startuml
-class Aluno
-Aluno : id
-Aluno : Nome
-Aluno : dataNascimento
-Aluno : cpf
-Aluno : email
-Aluno : endereco
+class Aluno {
+  -id
+  -nome
+  -dataNascimento
+}
 
-class Professor
-Professor : nome
-Professor : dataNascimento
-Professor : cpf
-Professor : email
-Professor : endereco
+class Professor {
+  -id
+  -nome
+  -especialidade
+}
 
-class Curso
-Curso : nome
-Curso : sigla
-Curso : status
+class Curso {
+  -id
+  -nome
+  -duracaoSemestres
+}
 
-class Disciplina
-Disciplina : nome
-Disciplina : sigla
-Disciplina : semestre
-Disciplina : status
+class Disciplina {
+  -id
+  -nome
+  -credito
+}
 
-class Turma
-Turma : ano
-Turma : categoria
+class Turma {
+  -id
+  -codigo
+  -horario
+  -semestre
+}
 
-class Matricula
-Matricula : dataMatricula
+class Matricula {
+  -id
+  -data
+}
 
-
-Curso "1" - "*" Disciplina : contém >
-Disciplina "1" - "*" Professor : contém >
-(Disciplina, Aluno) .. Matricula
-
-(Disciplina, Curso) .. Turma
+(Turma, Aluno) .. Matricula
+Turma "1" --> "*" Disciplina: oferece
+Disciplina "1" --> "1" Curso: pertence
+Professor "1" --> "0..*" Turma: ensina
+Professor "1" --> "0..*" Disciplina: leciona
 
 @enduml
 
