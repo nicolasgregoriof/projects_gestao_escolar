@@ -2,6 +2,9 @@ const { Sequelize } = require('sequelize')
 const sequelize = new Sequelize('admschool','root','admin',{
     host: 'localhost',
     dialect: 'mysql',
+    define: {
+        freezeTableName: true, // Desativa a pluralização automática
+    },
 })
 
 try {
