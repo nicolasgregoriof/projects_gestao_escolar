@@ -18,6 +18,13 @@ const Turmas = require('./models/Turmas')
 const Turmas_disc_professores = require('./models/Turmas_disc_professores')
 const Matriculas = require('./models/Matriculas')
 
+//Import Routes
+const admSchoolRoutes = require('./routes/admSchoolRoutes')
+
+//Import Controller
+const AdmSchoolController = require('./controllers/AdmSchoolController')
+
+
 //template engine
 app.engine('handlebars', exphbs.engine())
 app.set('view engine','handlebars')
@@ -67,6 +74,12 @@ app.use((req,res,next) => {
 
     next()
 })
+
+
+//Routes
+app.use('/admschool',admSchoolRoutes)
+app.get('/',AdmSchoolController.showAdmSchool)
+
 
 // Sincronização do banco de dados e criação de triggers com delay
 conn
