@@ -5,9 +5,18 @@ const flash = require('express-flash')
 const exphbs = require('express-handlebars')
 const app = express()
 const conn = require('./db/conn')
+const createTriggers = require('./scripts/create-triggers') // Importando o script de triggers
 
 //Models
-const User = require('./models/User')
+const Users = require('./models/Users')
+const Cursos = require('./models/Cursos')
+const Aluno = require('./models/Alunos') 
+const Professor = require('./models/Professores')
+const Disciplinas = require('./models/Disciplinas')
+const Disciplinas_professores = require('./models/Disciplinas_professores')
+const Turmas = require('./models/Turmas')
+const Turmas_disc_professores = require('./models/Turmas_disc_professores')
+const Matriculas = require('./models/Matriculas')
 
 //template engine
 app.engine('handlebars', exphbs.engine())
@@ -59,10 +68,17 @@ app.use((req,res,next) => {
     next()
 })
 
+// Sincronização do banco de dados e criação de triggers com delay
 conn
-    //.sync({ force: true })
-    .sync()
+    //.sync()    
+    .sync({ force: true }) // força a recriação das tabelas
     .then(() => {
-        app.listen(3000)
+        // Cria os triggers após as tabelas serem criadas
+        return createTriggers();
     })
-    .catch((err) => console.log(err))
+    .then(() => {
+        app.listen(3000, () => {
+            console.log('Servidor rodando na porta 3000');
+        });
+    })
+    .catch((err) => console.log(err));
