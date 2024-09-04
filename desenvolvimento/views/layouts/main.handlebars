@@ -17,14 +17,33 @@
             <img src="/img/admschool_logo.png" alt="AdmSchool">
         </a>
         <ul>
-            <li><a href="/">AdmSchool</a></li>
-            <!-- URLs após autenticação -->
-            <li><a href="/login">Entrar</a></li>
-            <li><a href="/register">Registrar</a></li>
+            {{#if session.userid}}
+                <li><a href="/">AdmSchool</a></li>
+                <li><a href="/register">Cadastro de Usuários</a></li>
+                <li><a href="/admschool/cadcurso">Cadastro de cursos</a></li>
+                <li><a href="/admschool/caddisciplina">Cadastro de disciplinas</a></li>
+                <li><a href="/admschool/cadvinculoprofessor">Vincular professor</a></li>
+                <li><a href="/admschool/cadturmas">Cadastro de turmas</a></li>
+                <li><a href="/admschool/cadvinculoturmas">Vincular turmas</a></li>
+                <li><a href="/admschool/cadmatriculas">Matricular alunos</a></li>
+                <li><a href="/logout">Sair</a></li>
+            {{else}}
+                <li><a href="/login">Entrar</a></li>
+                <li><a href="/register_adm">Registrar administrador</a></li>
+            {{/if}}
+
+
+
+           
+
         </ul>
     </nav>
     <div class="container">
-    <!-- Mensagens -->
+    {{#if messages.message}}
+        <div class="message">
+            {{messages.message}}
+        </div>
+    {{/if}}
     {{{ body }}}
     </div>
     <footer>

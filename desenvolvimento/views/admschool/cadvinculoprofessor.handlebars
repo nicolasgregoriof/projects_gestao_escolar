@@ -1,0 +1,62 @@
+<!-- cadvinculoprofessor.handlebars -->
+<div class="auth-container">
+    <h2>Vincular professor</h2>
+    <form action="/admschool/cadvinculoprofessor" method="POST" id="vincularForm">
+
+        <div class="form-control">
+            <label for="nomecurso">Nome do curso:</label>
+            <select name="nomecurso" id="nomecurso" required onchange="fetchDisciplinas(this.value)">
+                <option value="">Selecione um curso</option>
+                {{#each cursos}}
+                    <option value="{{this.id}}">{{this.nome}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="nomedisciplina">Nome da disciplina:</label>
+            <select name="nomedisciplina" id="nomedisciplina" required>
+                <option value="">Selecione uma disciplina</option>
+                <!-- As disciplinas serão adicionadas dinamicamente aqui -->
+            </select>
+        </div>
+        
+        <div class="form-control">
+            <label for="nomeprofessor">Nome do professor:</label>
+            <select name="nomeprofessor" required>
+                <option value="">Selecione um professor</option>
+                {{#each professores}}
+                    <option value="{{this.id}}">{{this.nome_user}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <!-- Campo oculto para manter o valor do curso selecionado -->
+        <input type="hidden" id="cursoSelecionadoHidden" name="cursoSelecionado" value="{{cursoSelecionado}}">
+
+        <input type="submit" value="Cadastrar">
+    </form>
+</div>
+
+<script>
+    function fetchDisciplinas(cursoId) {
+        if (cursoId) {
+            fetch(`/admschool/fetch-disciplinas/${cursoId}`)
+                .then(response => response.json())
+                .then(disciplinas => {
+                    const disciplinaSelect = document.getElementById('nomedisciplina');
+                    disciplinaSelect.innerHTML = '<option value="">Selecione uma disciplina</option>';
+
+                    disciplinas.forEach(disciplina => {
+                        const option = document.createElement('option');
+                        option.value = disciplina.id;
+                        option.textContent = disciplina.nome;
+                        disciplinaSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Erro ao buscar disciplinas:', error));
+        } else {
+            document.getElementById('nomedisciplina').innerHTML = '<option value="">Selecione uma disciplina</option>';
+        }
+    }
+</script>

@@ -1,4 +1,5 @@
 const { Sequelize } = require('sequelize')
+
 const sequelize = new Sequelize('admschool','root','admin',{
     host: 'localhost',
     dialect: 'mysql',
@@ -6,6 +7,14 @@ const sequelize = new Sequelize('admschool','root','admin',{
         freezeTableName: true, // Desativa a pluralização automática
     },
 })
+
+/*const sequelize = new Sequelize('admschool','admin','admin1234',{
+    host: 'admschool.cj1hbdrfyshz.us-east-1.rds.amazonaws.com',
+    dialect: 'mysql',
+    define: {
+        freezeTableName: true, // Desativa a pluralização automática
+    },
+})*/
 
 try {
     sequelize.authenticate()

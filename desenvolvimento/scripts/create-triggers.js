@@ -61,8 +61,6 @@ async function createTriggers() {
         console.log('Triggers criados com sucesso.');
     } catch (error) {
         console.error('Erro ao criar triggers:', error);
-    } finally {
-        await db.close();
     }
 }
 

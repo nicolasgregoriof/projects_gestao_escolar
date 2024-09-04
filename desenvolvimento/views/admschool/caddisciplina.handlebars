@@ -1,0 +1,24 @@
+<div class="auth-container">
+    <h2>Cadastro de nova disciplina</h2>
+    <form action="/admschool/caddisciplina" method="POST">
+        <div class="form-control">
+            <label for="nomedisciplina">Nome da disciplina:</label>
+            <input type="text" name="nomedisciplina" placeholder="" required>
+        </div>
+        <div class="form-control">
+            <label for="cursodadiscilina">Curso da disciplina:</label>
+            <select name="cursodadiscilina" required>
+                <option value="">Selecione um curso</option>
+                {{#each cursos}}
+                    <option value="{{this.id}}">{{this.nome}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-control">
+            <label for="semestredisciplina">Semestre da disciplina:</label>
+            <input type="text" name="semestredisciplina" placeholder="" required>
+        </div>
+
+        <input type="submit" value="Cadastrar">
+    </form>
+</div>
