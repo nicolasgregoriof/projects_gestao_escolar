@@ -20,13 +20,15 @@ const Matriculas = require('./models/Matriculas')
 
 //Import Routes
 const admSchoolRoutes = require('./routes/admSchoolRoutes')
+const authRoutes = require('./routes/authRoutes')
 
 //Import Controller
 const AdmSchoolController = require('./controllers/AdmSchoolController')
 
 
 //template engine
-app.engine('handlebars', exphbs.engine())
+//app.engine('handlebars', exphbs.engine())
+app.engine('handlebars', exphbs.engine());
 app.set('view engine','handlebars')
 
 
@@ -62,6 +64,7 @@ app.use(
 //flash messages
 app.use(flash())
 
+
 // public path
 app.use(express.static('public'))
 
@@ -78,13 +81,14 @@ app.use((req,res,next) => {
 
 //Routes
 app.use('/admschool',admSchoolRoutes)
+app.use('/',authRoutes)
 app.get('/',AdmSchoolController.showAdmSchool)
 
 
 // Sincronização do banco de dados e criação de triggers com delay
 conn
-    //.sync()    
-    .sync({ force: true }) // força a recriação das tabelas
+    .sync()    
+    //.sync({ force: true }) // força a recriação das tabelas
     .then(() => {
         // Cria os triggers após as tabelas serem criadas
         return createTriggers();

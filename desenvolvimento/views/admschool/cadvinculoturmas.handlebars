@@ -1,0 +1,212 @@
+<div class="auth-container">
+    <h2>Vincular turmas a professores</h2>
+    <form action="/admschool/cadvinculoturmas" method="POST">
+
+        <div class="form-control">
+            <label for="vinc_nomeprofessor">Nome do professor:</label>
+            <select name="vinc_nomeprofessor" id="vinc_nomeprofessor" required onchange="fetchCursos(this.value)">
+                <option value="">Selecione um professor</option>
+                {{#each professores}}
+                    <option value="{{this.id}}">{{this.nome_user}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="vinc_curso">Nome do curso:</label>
+            <select name="vinc_curso" id="vinc_curso" required onchange="fetchDisciplinas()">
+                <option value="">Selecione um curso</option>
+                <!-- Os cursos serão adicionados dinamicamente aqui -->
+            </select>
+        </div>
+
+
+        <div class="form-control">
+            <label for="vinc_disciplina">Nome da disciplina:</label>
+            <select name="vinc_disciplina" id="vinc_disciplina" required onchange="fetchAno()">
+                <option value="">Selecione uma disciplina</option>
+                <!-- As discilpinas serão adicionados dinamicamente aqui -->
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="vinc_anocontrole">Ano:</label>
+            <select name="vinc_anocontrole" id="vinc_anocontrole" required onchange="fetchSemestre(this.value)">
+                <option value="">Selecione um ano</option>
+                <!-- Os anos serão adicionados dinamicamente aqui -->
+            </select>
+        </div>
+
+
+        <div class="form-control">
+            <label for="vinc_semestre">Semestre do ano:</label>
+            <select name="vinc_semestre" id="vinc_semestre" required onchange="fetchSuf(this.value)">
+                <option value="">Selecione um semestre</option>
+                <!-- Os semestres serão adicionados dinamicamente aqui -->
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="vinc_sufturma">Sufixo da turma:</label>
+            <select name="vinc_sufturma" id="vinc_sufturma" required>
+                <option value="">Selecione um sufixo</option>
+                <!-- Os sufixos serão adicionados dinamicamente aqui -->
+            </select>
+        </div>
+
+
+        <input type="submit" value="Cadastrar">
+    </form>
+</div>
+
+
+<script>
+
+    async function fetchCursos(professorId) {
+        try {
+            // Fazendo uma requisição GET para buscar cursos associados ao professor
+            const response = await fetch(`/admschool/fetch-professor-curso/${professorId}`);
+            const cursos = await response.json();
+
+            // Obtendo o elemento select de cursos
+            const cursosSelect = document.getElementById('vinc_curso');
+
+            // Limpando as opções atuais
+            cursosSelect.innerHTML = '<option value="">Selecione um curso</option>';
+
+            // Adicionando novas opções ao select de cursos
+            cursos.forEach(curso => {
+                const option = document.createElement('option');
+                option.value = curso.id;
+                option.textContent = curso.nome;
+                cursosSelect.appendChild(option);
+            });
+
+        } catch (error) {
+            console.error('Erro ao buscar cursos:', error);
+        }
+    }
+
+    async function fetchDisciplinas() {
+        try {
+
+            const cursoId = document.getElementById('vinc_curso').value;
+            const professorId = document.getElementById('vinc_nomeprofessor').value;
+
+            // Fazendo uma requisição GET para buscar disciplinas associadas ao curso
+            const response = await fetch(`/admschool/fetchCursoByDisciplina/${cursoId}/${professorId}`);
+            const disciplinas = await response.json();
+
+            // Obtendo o elemento select de disciplinas
+            const disciplinasSelect = document.getElementById('vinc_disciplina');
+
+            // Limpando as opções atuais
+            disciplinasSelect.innerHTML = '<option value="">Selecione uma disciplina</option>';
+
+            // Adicionando novas opções ao select de disciplinas
+            disciplinas.forEach(disciplina => {
+                const option = document.createElement('option');
+                option.value = disciplina.id;
+                option.textContent = disciplina.nome;
+                disciplinasSelect.appendChild(option);
+            });
+
+        } catch (error) {
+            console.error('Erro ao buscar disciplinas:', error);
+        }
+    }
+
+    function fetchProfessorByCurso(professorId) {
+        if (professorId) {
+            fetchCursos(professorId);
+        }
+    }
+
+    function fetchCursoByDisciplina(cursoId) {
+        const professorId = document.getElementById('vinc_nomeprofessor').value;
+        if (cursoId && professorId) {
+            fetchDisciplinas(cursoId, professorId);
+        }
+    }
+
+    async function fetchAno(){
+        try {
+
+            const cursoId = document.getElementById('vinc_curso').value;
+
+            // Fazendo uma requisição GET para buscar cursos associados ao professor
+            const response = await fetch(`/admschool/fetch-turma-ano/${cursoId}`);
+            const anos = await response.json();
+
+            // Obtendo o elemento select de cursos
+            const anoSelect = document.getElementById('vinc_anocontrole');
+
+            // Limpando as opções atuais
+            anoSelect.innerHTML = '<option value="">Selecione um ano</option>';
+            
+            // Adicionando novas opções ao select de cursos
+            anos.forEach(an => {
+                const option = document.createElement('option');
+                option.value = an.ano;
+                option.textContent = an.ano;
+                anoSelect.appendChild(option); 
+            });
+        
+        } catch (error) {
+            console.error('Erro ao buscar cursos:', error);
+        }
+    }
+    
+    async function fetchSemestre(vinc_anocontrole){
+        try {
+
+            const cursoId = document.getElementById('vinc_curso').value;
+
+            // Fazendo uma requisição GET para buscar cursos associados ao professor
+            const response = await fetch(`/admschool/fetch-semestre/${vinc_anocontrole}/${cursoId}`);
+            const semestres = await response.json();
+
+            // Obtendo o elemento select de cursos
+            const semestreSelect = document.getElementById('vinc_semestre');
+
+            // Limpando as opções atuais
+            semestreSelect.innerHTML = '<option value="">Selecione um semestre</option>';
+            
+            // Adicionando novas opções ao select de cursos
+            semestres.forEach(sem => {
+                const option = document.createElement('option');
+                option.value = sem.semestre;
+                option.textContent = sem.semestre;
+                semestreSelect.appendChild(option); 
+            });
+        
+        } catch (error) {
+            console.error('Erro ao buscar semestres:', error);
+        }
+    }
+
+    async function fetchSuf(vinc_semestre){
+        try {
+        
+            const course = document.getElementById('vinc_curso').value;
+            const year = document.getElementById('vinc_anocontrole').value;
+
+            const resp = await fetch(`/admschool/fetch-busca-sufixo/${vinc_semestre}/${course}/${year}`);
+            const sufixos = await resp.json();
+
+            const sufSelect = document.getElementById('vinc_sufturma');
+            sufSelect.innerHTML = '<option value="">Selecione um sufixo</option>';
+
+            sufixos.forEach(sfx => {
+                const option = document.createElement('option');
+                option.value = sfx.cod_turma;
+                option.textContent = sfx.cod_turma;
+                sufSelect.appendChild(option);
+            })
+
+        } catch (error) {
+            console.error('Erro ao buscar sufixos:', error);
+        }
+    }
+
+</script>

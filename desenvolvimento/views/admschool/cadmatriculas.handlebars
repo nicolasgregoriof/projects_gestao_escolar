@@ -1,0 +1,114 @@
+<div class="auth-container">
+    <h2>Matícula</h2>
+    <form action="/admschool/cadmatriculas" method="POST">
+
+        <div class="form-control">
+            <label for="mat_id_aluno">E-mail:</label>
+            <input type="text" name="mat_id_aluno" id="mat_id_aluno"  placeholder="Digite o e-mail do aluno" required onblur="preencheNome(this.value)">
+        </div>
+        <div class="form-control">
+            <label for="mat_nome_aluno">Nome do aluno:</label>
+            <input type="text" name="mat_nome_aluno" id="mat_nome_aluno"  placeholder="" required readonly>
+        </div>
+        <div class="form-control">
+            <label for="mat_ano">Ano da matricula:</label>
+            <input type="text" name="mat_ano"  id="mat_ano" placeholder="" required>
+        </div>
+
+        <div class="form-control">
+            <label for="mat_sem">Semestre da matricula:</label>
+            <select name="mat_sem" id="mat_sem" required>
+                <option value="">Selecione um semestre</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+            </div>
+        
+        <div class="form-control">
+            <label for="cursodadiscilina">Nome do curso:</label>
+            <select name="cursodadiscilina" id="cursodadiscilina" required onchange="fetchCursos(this.value)">
+                <option value="">Selecione um curso</option>
+                {{#each cursos}}
+                    <option value="{{this.t_curso}}">{{this.curso_name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-control">
+            <label for="mat_disciplina">Nome da disciplina:</label>
+            <select name="mat_disciplina" id= "mat_disciplina" required onchange="fetchMatSuf()">
+                <option value="">Selecione um curso</option>
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="mat_sufixo">Sufixo da turma:</label>
+            <select name="mat_sufixo" id= "mat_sufixo" required>
+                <option value="">Selecione um sufixo</option>
+            </select>
+        </div>
+
+        <input type="submit" value="Cadastrar">
+    </form>
+
+</div>
+
+<script>
+
+    async function preencheNome(mat_id_aluno){
+        //buscando email
+        try{
+            const response = await fetch(`/admschool/fetch-nome/${mat_id_aluno}`);
+            const nomes = await response.json();
+
+            //obtendo elemento a ser preenchido
+            const nomeText = document.getElementById('mat_nome_aluno');
+            nomeText.value = nomes[0].name;
+
+        } catch (error) {
+                console.error('Erro ao buscar nome:', error);
+                document.getElementById('mat_id_aluno').value = '';
+                alert('Email incorreto ou aluno não cadastrado, tente novamente!');
+        }
+    }
+
+    async function fetchCursos(){
+        const id_curso = document.getElementById('cursodadiscilina').value;
+        
+        const resp = await fetch(`/admschool/fetch-c/${id_curso}`)
+        const disc = await resp.json();
+
+        const discSelect = document.getElementById('mat_disciplina')
+        discSelect.innerHTML = '<option value="">Selecione uma disciplina</option>'
+        
+        disc.forEach(d => {
+            const option = document.createElement('option');
+            option.value = d.id;
+            option.textContent = d.nome;
+            discSelect.appendChild(option);
+        });
+        
+        console.log(id_curso)
+    }
+
+    async function fetchMatSuf(){
+        const id_ano = document.getElementById('mat_ano').value;
+        const id_disciplina = document.getElementById('mat_disciplina').value;
+        const id_curso = document.getElementById('cursodadiscilina').value;
+
+        const resp = await fetch(`/admschool/fetch-s/${id_ano}/${id_curso}/${id_disciplina}`)
+        const sufixo = await resp.json();
+
+        const sufixoSelect = document.getElementById('mat_sufixo')
+        sufixoSelect.innerHTML = '<option value="">Selecione uma disciplina</option>'
+
+        sufixo.forEach(s => {
+            const option = document.createElement('option');
+            option.value = s.t_sufixo;
+            option.textContent = s.t_sufixo;
+            sufixoSelect.appendChild(option);
+        });
+
+        console.log(id_ano,id_curso,id_disciplina)
+    }
+
+</script>

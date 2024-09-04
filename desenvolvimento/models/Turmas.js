@@ -3,6 +3,10 @@ const db = require('../db/conn')
 
 const Turmas = db.define('Turmas',{
 
+    cod_curso:{
+        type: DataTypes.INTEGER,
+        require: true,
+    },
     cod_turma:{
         type: DataTypes.STRING,
         require: true,
