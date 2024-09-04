@@ -12,32 +12,40 @@
 
 </head>
 <body>
-    <nav id="navbar">
-        <a href="/" id="logo">
-            <img src="/img/admschool_logo.png" alt="AdmSchool">
-        </a>
-        <ul>
-            {{#if session.userid}}
-                <li><a href="/">AdmSchool</a></li>
-                <li><a href="/register">Cadastro de Usuários</a></li>
-                <li><a href="/admschool/cadcurso">Cadastro de cursos</a></li>
-                <li><a href="/admschool/caddisciplina">Cadastro de disciplinas</a></li>
-                <li><a href="/admschool/cadvinculoprofessor">Vincular professor</a></li>
-                <li><a href="/admschool/cadturmas">Cadastro de turmas</a></li>
-                <li><a href="/admschool/cadvinculoturmas">Vincular turmas</a></li>
-                <li><a href="/admschool/cadmatriculas">Matricular alunos</a></li>
-                <li><a href="/logout">Sair</a></li>
-            {{else}}
-                <li><a href="/login">Entrar</a></li>
-                <li><a href="/register_adm">Registrar administrador</a></li>
-            {{/if}}
+    
 
+    <!-- Menu Lateral -->
+    <div id="navbar-container">
+        <!-- Menu Lateral -->
+        <nav id="navbar" class="sidebar">
+            <!-- Botão para expandir/recolher o menu -->
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            
+            <a href="/" id="logo">
+                <img src="/img/admschool_logo.png" alt="AdmSchool">
+            </a>
+            
+            <ul>
+                {{#if session.userid}}
+                    <li><a href="/">AdmSchool</a></li>
+                    <li><a href="/register">Cadastro de Usuários</a></li>
+                    <li><a href="/admschool/cadcurso">Cadastro de cursos</a></li>
+                    <li><a href="/admschool/caddisciplina">Cadastro de disciplinas</a></li>
+                    <li><a href="/admschool/cadvinculoprofessor">Vincular professor</a></li>
+                    <li><a href="/admschool/cadturmas">Cadastro de turmas</a></li>
+                    <li><a href="/admschool/cadvinculoturmas">Vincular turmas</a></li>
+                    <li><a href="/admschool/cadmatriculas">Matricular alunos</a></li>
+                    <li><a href="/logout">Sair</a></li>
+                {{else}}
+                    <li><a href="/login">Entrar</a></li>
+                    <li><a href="/register_adm">Registrar administrador</a></li>
+                {{/if}}
+            </ul>
+        </nav>
+        <!-- Linha Lateral -->
+        <div id="sidebar-line"></div>
+    </div>
 
-
-           
-
-        </ul>
-    </nav>
     <div class="container">
     {{#if messages.message}}
         <div class="message">
@@ -49,5 +57,8 @@
     <footer>
        <p><span>AdmSchool</span> &copy; 2024</p> 
     </footer>
+
+    <script src="/js/script.js"></script>
+
 </body>
 </html>

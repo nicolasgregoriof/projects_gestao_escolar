@@ -2,43 +2,162 @@
     font-family: Helvetica;
     margin: 0;
     padding: 0;
+    box-sizing: border-box; 
     background-color: #222;
     color: #fff;
 }
 
+
+
+
 /* NAVBAR */
-#logo img{
-    height: 40px;
+
+.menu-btn {
+    background-color: transparent;
+    border: none;
+    color: #f6982d;
+    font-size: 1.5em;
+    cursor: pointer;
+    position: absolute; /* Posicionamento absoluto para flutuar no menu */
+    top: 20px; /* Ajuste da posição vertical */
+    left: 23px; /* Ajuste da posição horizontal */
+    z-index: 10; /* Certifica que o botão fica acima de outros elementos */
 }
 
-#navbar{
-    padding: 1.2em 1.4em;
-    margin-bottom: 1em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #222;
-    border-bottom: 1px solid #f6982d;
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    max-width: 250px;
+    background-color: #333; /* Cor de fundo do menu */
+    padding-top: 70px; /* Adiciona padding para acomodar o botão de retração */
+    transition: width 0.3s; /* Animação ao expandir/retrair */
+    overflow-x: hidden; /* Evita barra de rolagem horizontal */
+    color: #fff; /* Cor do texto dentro do menu */
 }
 
-#navbar ul{
-    display: flex;
+/* Linha Lateral */
+#sidebar-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 10px; /* Largura da linha lateral */
+    height: 100%; /* Altura total */
+    background-color: #f6982d; /* Cor da linha lateral */
+    transition: width 0.3s; /* Animação ao expandir/retrair */
+    z-index: 999; /* Certifica que a linha lateral fique acima do conteúdo */
+}
+
+#navbar ul {
     list-style: none;
+    padding: 0;
 }
 
-#navbar ul li{
-    margin-left: 1em;
+#navbar ul li {
+    padding: 10px 15px;
+    background-color: #333;
 }
 
-#navbar ul li a{
+#navbar ul li a {
+    color: #fff;
+    background-color: #333;
     text-decoration: none;
-    transition: 0.5s;
     font-weight: bold;
+    transition: color 0.5s;
+    display: block; /* Garante que o link ocupe todo o espaço do item */
+    padding-left: 15px; /* Adiciona espaço à esquerda do texto dos links */
 }
 
 #navbar ul li a:hover {
-    color:#f6982d;
+    color: #f6982d;
 }
+
+#logo img {
+    height: 40px;
+    margin: 0 auto 20px auto;
+    display: block; /* Centraliza a logo */
+}
+
+/* Botão para Retrátil o Menu */
+/* Botão para expandir/recolher o menu */
+#menu-toggle {
+    background-color: transparent; /* Fundo transparente do botão */
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #f6982d; /* Cor do ícone do botão */
+    transition: color 0.3s, background-color 0.3s; /* Adiciona transição para a cor de fundo */
+    z-index: 10; /* Mantém o botão acima do menu */
+    position: absolute; /* Posicionamento absoluto dentro do menu */
+    top: 15px; /* Ajusta a posição vertical do botão */
+    left: 15px; /* Ajusta a posição horizontal do botão */
+    width: calc(100% - 30px); /* Faz o botão ocupar toda a largura do menu, considerando o padding */
+    text-align: center; /* Centraliza o ícone */
+    padding: 10px 0; /* Adiciona algum espaço ao redor do botão */
+}
+
+/* Cor de fundo do botão ao passar o mouse */
+#menu-toggle:hover {
+    background-color: #444; /* Cor de fundo ao passar o mouse */
+    color: #fff; /* Cor do ícone ao passar o mouse */
+}
+
+
+/* Quando o menu está retraído */
+#navbar.retracted {
+    width: 70px; /* Largura reduzida */
+    padding-top: 70px;
+    overflow: hidden;
+    background-color: #333; /* Cor de fundo do menu quando retraído */
+}
+
+
+#navbar.retracted ~ #menu-toggle {
+    background-color: #333; /* Cor de fundo do botão quando o menu está retraído */
+    color: #f6982d; /* Cor do ícone do botão quando o menu está retraído */
+}
+
+#navbar.retracted #menu-toggle {
+    background-color: #333; /* Cor de fundo do botão quando o menu está retraído */
+    color: #f6982d; /* Cor do ícone do botão quando o menu está retraído */
+}
+
+#navbar.retracted ul li a {
+    text-align: center; /* Alinha o texto no centro quando retraído */
+    font-size: 0; /* Esconde o texto */
+}
+
+#navbar.retracted ul li a:before {
+    content: attr(data-text); /* Mantém o texto acessível em um atributo personalizado */
+    font-size: 16px; /* Tamanho do texto ao passar o mouse */
+    display: block;
+}
+
+
+
+/* CONTAINER */
+.container {
+    margin-left: 250px; /* Deixa espaço para o menu */
+    padding: 20px;
+    transition: margin-left 0.3s; /* Animação ao expandir/retrair */
+}
+
+#navbar.retracted ~ .container {
+    margin-left: 70px; /* Reduz margem quando o menu está retraído */
+}
+
+/* Estilos Adicionais */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
 
 /*CONTAINER*/
 .container{
