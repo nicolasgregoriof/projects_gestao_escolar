@@ -16,6 +16,7 @@ const Users = db.define('Users',{
     email:{
         type: DataTypes.STRING,
         require: true,
+        unique: true,
     },
 
     telefone:{

@@ -6,6 +6,7 @@ const Cursos = db.define('Cursos',{
     nome:{
         type: DataTypes.STRING,
         require: true,
+        unique: true,
     },
 
     qtde_semestre:{

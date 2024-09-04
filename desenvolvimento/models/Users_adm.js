@@ -16,6 +16,7 @@ const Users_adm = db.define('Users_adm',{
     email:{
         type: DataTypes.STRING,
         require: true,
+        unique: true,
     }
 });
 
