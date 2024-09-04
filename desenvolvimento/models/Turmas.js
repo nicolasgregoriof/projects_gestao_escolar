@@ -20,7 +20,13 @@ const Turmas = db.define('Turmas',{
         require: true,
     },
 },{
-    timestamps: false // Desativa `createdAt` e `updatedAt`
+    timestamps: false, // Desativa `createdAt` e `updatedAt`
+    indexes: [
+        {
+            unique: true,
+            fields: ['cod_curso','cod_turma', 'ano', 'semestre'], // Conjunto único de campos
+        },
+    ],
 });
 
 module.exports = Turmas;
