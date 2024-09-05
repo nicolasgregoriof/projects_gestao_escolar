@@ -6,6 +6,12 @@ const sequelize = new Sequelize('admschool','ng_figueiredo','admin',{
     define: {
         freezeTableName: true, // Desativa a pluralização automática
     },
+    pool: {
+        acquire: 30000, // Tempo limite para adquirir uma conexão
+    },
+    dialectOptions: {
+        connectTimeout: 10000 // Tempo limite de conexão
+    }
 })
 
 /*const sequelize = new Sequelize('admschool','admin','admin1234',{
