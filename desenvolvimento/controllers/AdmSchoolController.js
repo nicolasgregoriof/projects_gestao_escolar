@@ -516,6 +516,7 @@ module.exports = class AdmSchoolController {
         const { 
             mat_nome_aluno,
             mat_ano,
+            mat_sem,
             cursodadiscilina, 
             mat_disciplina, 
             mat_sufixo,
@@ -524,6 +525,7 @@ module.exports = class AdmSchoolController {
         const mat = {
             mat_aluno: mat_nome_aluno,
             mat_ano: mat_ano,
+            mat_semestre: mat_sem,
             mat_curso: cursodadiscilina, 
             mat_disciplina: mat_disciplina,
             mat_sufturma: mat_sufixo,
@@ -544,5 +546,95 @@ module.exports = class AdmSchoolController {
             req.flash('error', 'Erro ao realizar a matricula. Tente novamente.');
             res.redirect('/admschool/cadvinculoturmas');
         }
+    }
+
+    static async showMatriculas (req,res){
+
+        const matriculasData = await Matriculas.findAll({
+            attributes: ['mat_ano'],
+            group: ['mat_ano'],
+        })
+
+        const allanos = matriculasData.map(item => item.toJSON());
+
+        //Aqui começa a busca
+        const { id_ano, id_curso, id_semestre } = req.query;
+        
+        let allmat = [];
+
+       // Verificar se o parâmetro obrigatório 'id_ano' foi fornecido
+        if (id_ano) {
+            // Criando o objeto 'where' dinamicamente
+            const whereConditions = {
+                mat_ano: id_ano, // 'id_ano' é obrigatório
+            };
+
+            // Adicionando condições opcionais se fornecidas
+            if (id_curso) {
+                whereConditions.mat_curso = id_curso;
+            }
+            if (id_semestre) {
+                whereConditions.mat_semestre = id_semestre;
+            }
+
+            // Consulta usando sequelize.literal para adicionar JOINs
+            const matriculas = await Matriculas.findAll({
+                attributes: [
+                    'id',
+                    'mat_aluno',
+                    'mat_ano',
+                    'mat_semestre',
+                    'mat_sufturma',
+                    [Sequelize.literal(`(SELECT nome FROM Cursos WHERE Cursos.id = Matriculas.mat_curso)`), 'curso_nome'],
+                    [Sequelize.literal(`(SELECT nome FROM Disciplinas WHERE Disciplinas.id = Matriculas.mat_disciplina)`), 'disciplina_nome']
+                ],
+                where: whereConditions, // Utilizando as condições dinâmicas
+            });
+
+            allmat = matriculas.map(item => item.toJSON());
+        }
+
+        res.render('admschool/showmatriculas', {anos: allanos, matriculas:allmat})
+    }
+
+    static async fetchRelSemestre(req,res){
+        const {id_ano} = req.params
+
+        const semestre = await Matriculas.findAll({
+            attributes:['mat_semestre'],
+            where:{
+                mat_ano: id_ano,
+            },
+            group: ['mat_semestre']
+        })
+
+        const semestreData = semestre.map(item => item.toJSON())
+
+        res.json(semestreData)
+    }
+
+    static async fetchRelCurso(req,res){
+        const {id_semestre,id_ano} = req.params
+
+        const curso = await Matriculas.findAll({
+            attributes:['mat_curso'],
+            where:{
+                mat_semestre: id_semestre,
+                mat_ano: id_ano,
+            },
+            group: ['mat_curso']
+        })
+
+        const curso_id = curso.map(item => item.mat_curso)
+
+        const nome_curso = await Cursos.findAll({
+            attributes:['id','nome'],
+            where:{
+                id :curso_id
+            }
+        })
+
+        const names = nome_curso.map(item => item.toJSON())
+        res.json(names)
     }
 }
