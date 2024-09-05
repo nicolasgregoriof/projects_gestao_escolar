@@ -15,6 +15,11 @@ const Matriculas = db.define('Matriculas',{
             require: true,
         },
 
+        mat_semestre:{
+            type: DataTypes.INTEGER,
+            require: true,
+        },
+
         mat_curso:{
             type: DataTypes.STRING,
             require: true,

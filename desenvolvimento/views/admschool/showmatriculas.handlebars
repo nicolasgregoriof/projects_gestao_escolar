@@ -1,0 +1,125 @@
+<div class="auth-container2">
+    <h2>Relação de Matrículas</h2>
+    <form action="/admschool/showmatriculas" method="GET">
+        
+        <div class="form-control-pesquisa">
+            <label for="id_ano">Ano:</label>
+            <select name="id_ano" id ="id_ano" required onchange="fetchSemestreRelatorio()">
+                <option value="" selected>Escolha um ano</option>
+                {{#each anos}}
+                    <option value="{{this.mat_ano}}">{{this.mat_ano}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form-control-pesquisa">
+            <label for="id_semestre">Semestre:</label>
+            <select name="id_semestre" id ="id_semestre" onchange="fetchCursoRelatorio()">
+                <option value="" selected>Escolha um semestre</option>
+            </select>
+        </div>
+
+        <div class="form-control-pesquisa">
+            <label for="id_curso">Curso:</label>
+            <select name="id_curso" id ="id_curso" >
+                <option value="">Escolha um curso</option>
+                {{#each cursos}}
+                    <option value="{{this.id}}">{{this.nome}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form-btn">
+            <input type="submit" value="Pesquisar">
+        </div>
+
+    </form>
+
+    <!-- Seção para exibir as matrículas encontradas -->
+<div class="container-relatorio">
+    <!-- Seção para exibir as matrículas encontradas -->
+    {{#if matriculas.length}}
+    <div class="table-container">
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Aluno</th>
+                    <th>Ano</th>
+                    <th>Semestre</th>
+                    <th>Curso</th>
+                    <th>Disciplina</th>
+                    <th>Turma</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each matriculas}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.mat_aluno}}</td>
+                    <td>{{this.mat_ano}}</td>
+                    <td>{{this.mat_semestre}}</td>
+                    <td>{{this.curso_nome}}</td>
+                    <td>{{this.disciplina_nome}}</td>
+                    <td>{{this.mat_sufturma}}</td> 
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    {{else}}
+    <div class="no-results">
+        <p>Nenhuma matrícula encontrada com os filtros aplicados.</p>
+    </div>
+    {{/if}}
+</div>
+
+
+</div>
+
+<script>
+
+    async function fetchSemestreRelatorio(){
+        const id_ano = document.getElementById('id_ano').value;
+
+        const resp = await fetch(`/admschool/fetch-rel-semestre/${id_ano}`)
+        const relSemestre = await resp.json();
+
+        const relSemestreSelect = document.getElementById('id_semestre')
+        relSemestreSelect.innerHTML = '<option value="">Selecione um Semestre</option>'
+        
+        relSemestre.forEach(rs => {
+            const option = document.createElement('option');
+            option.value = rs.mat_semestre;
+            option.textContent = rs.mat_semestre;
+            relSemestreSelect.appendChild(option);
+        });
+
+        console.log(id_ano)
+    }
+
+    async function fetchCursoRelatorio(){
+        const id_semestre = document.getElementById('id_semestre').value;
+        const id_ano = document.getElementById('id_ano').value;
+
+        const resp = await fetch(`/admschool/fetch-rel-curso/${id_semestre}/${id_ano}`)
+        const relCursos = await resp.json();
+
+        const relCursosSelect = document.getElementById('id_curso')
+        relCursosSelect.innerHTML = '<option value="">Selecione um Curso</option>'
+        
+        relCursos.forEach(rs => {
+            const option = document.createElement('option');
+            option.value = rs.id;
+            option.textContent = rs.nome;
+            relCursosSelect.appendChild(option);
+        });
+
+        console.log(id_semestre)
+
+
+
+    }
+
+
+</script>

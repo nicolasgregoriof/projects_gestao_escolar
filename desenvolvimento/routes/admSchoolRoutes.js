@@ -34,4 +34,8 @@ router.get('/fetch-c/:id_curso',checkAuth,AdmSchoolController.fetchC);
 router.get('/fetch-s/:id_ano/:id_curso/:id_disciplina',checkAuth,AdmSchoolController.fetchS);
 router.post('/cadmatriculas',checkAuth, AdmSchoolController.cadMatriculasPost);
 
+router.get('/showmatriculas',checkAuth, AdmSchoolController.showMatriculas);
+router.get('/fetch-rel-semestre/:id_ano',checkAuth, AdmSchoolController.fetchRelSemestre);
+router.get('/fetch-rel-curso/:id_semestre/:id_ano',checkAuth, AdmSchoolController.fetchRelCurso);
+
 module.exports = router

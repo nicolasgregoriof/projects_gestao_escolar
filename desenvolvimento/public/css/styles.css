@@ -142,11 +142,14 @@
     margin-left: 250px; /* Deixa espaço para o menu */
     padding: 20px;
     transition: margin-left 0.3s; /* Animação ao expandir/retrair */
+    min-height: 60vh;
+    padding: 2em;
 }
 
 #navbar.retracted ~ .container {
     margin-left: 70px; /* Reduz margem quando o menu está retraído */
 }
+
 
 /* Estilos Adicionais */
 body {
@@ -155,16 +158,9 @@ body {
 }
 
 
-
-
-
-
-/*CONTAINER*/
-.container{
-    min-height: 60vh;
-    padding: 2em;
+#submenu ul li a{
+    color: #bdbdbd;
 }
-
 
 /* MESSAGES */
 .message{
@@ -187,12 +183,35 @@ body {
     flex-direction: column;
 }
 
+.auth-container2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    
+}
+
+.auth-container2 form{
+    display: flex;
+    gap: 50px;
+} 
+
 .auth-container h2 {
     margin-bottom: 1em;
     color: #FFF;
     border-left: 4px solid #f6982d;
     padding: 0.3em;
     width: 100px;
+}
+
+.auth-container2 h2 {
+    margin-bottom: 1em;
+    color: #FFF;
+    border-left: 4px solid #f6982d;
+    padding: 0.3em;
+    width: 800px;
 }
 
 .auth-container a {
@@ -205,10 +224,21 @@ body {
     margin-bottom: 1em;
 }
 
+.form-control-pesquisa{
+    display: flex;
+    flex-direction: column;
+}
+
 .form-control label {
     font-weight: bold;
     margin-bottom: 0.5em; 
 }
+
+.form-control-pesquisa label {
+    font-weight: bold;
+    margin-bottom: 0.5em; 
+}
+
 
 .form-control input,
 .form-control textarea,
@@ -218,6 +248,20 @@ body {
     border: 1px solid #f6982d;
     width: 100%; 
     box-sizing: border-box;
+}
+
+.form-control-pesquisa input,
+.form-control-pesquisa textarea,
+.form-control-pesquisa select {
+    padding: 7px;
+    border-radius: 3px;
+    border: 1px solid #f6982d;
+    width: 20em; 
+    box-sizing: border-box;
+}
+
+.form-btn{
+    margin-top: 2%;
 }
 
 form input[type='submit'],
@@ -240,6 +284,87 @@ form input[type='submit']:hover,
   background-color: #f6982d;
   color: #FFF;  
 }
+
+
+/*CONTAINER RELTORIO PAGINA RELATORIO DE MATRICULAS*/
+.container-relatorio {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #333; /* Seguindo o padrão de cor do navbar */
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+/* Estilos da Tabela */
+.modern-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #333; /* Mesma cor de fundo do container para integração visual */
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.modern-table th,
+.modern-table td {
+    padding: 15px 20px;
+    text-align: left;
+    color: #fff; /* Cor do texto para contraste */
+}
+
+.modern-table th {
+    background-color: #f6982d; /* Cor de fundo moderna para cabeçalho */
+    text-transform: uppercase;
+    font-size: 14px;
+    border-bottom: 1px solid #444; /* Borda mais escura */
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modern-table td {
+    border-bottom: 1px solid #444; /* Borda mais escura */
+    background-color: #222; /* Para um contraste sutil */
+}
+
+.modern-table tr:last-child td {
+    border-bottom: none; /* Remove a borda inferior da última linha */
+}
+
+.modern-table td:first-child,
+.modern-table th:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+.modern-table td:last-child,
+.modern-table th:last-child {
+    border-radius: 0 12px 12px 0;
+    border-right: none;
+}
+
+/* Efeito Hover nas Linhas */
+.modern-table tbody tr:hover {
+    background-color: #333; /* Cor de fundo ao passar o mouse */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Mensagem de Nenhum Resultado */
+.no-results p {
+    text-align: center;
+    font-size: 18px;
+    color: #f6982d; /* Destaque para a mensagem */
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #222; /* Cor de fundo consistente */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
 
 
 /*FOOTER*/

@@ -34,7 +34,15 @@
                     <li><a href="/admschool/cadvinculoprofessor">Vincular professor</a></li>
                     <li><a href="/admschool/cadturmas">Cadastro de turmas</a></li>
                     <li><a href="/admschool/cadvinculoturmas">Vincular turmas</a></li>
-                    <li><a href="/admschool/cadmatriculas">Matricular alunos</a></li>
+                              <!-- Menu Matricular Alunos com Submenu -->
+                    <li id="submenu">
+                        <a href="javascript:void(0)" onclick="toggleSubmenu('matricula-submenu')">Matricula</a>
+                        <!-- Submenu -->
+                        <ul id="matricula-submenu" class="submenu-items">
+                            <li><a href="/admschool/cadmatriculas">Matricular alunos</a></li>
+                            <li><a href="/admschool/showmatriculas">Relatório de matrículas</a></li>
+                        </ul>
+                    </li>
                     <li><a href="/logout">Sair</a></li>
                 {{else}}
                     <li><a href="/login">Entrar</a></li>
