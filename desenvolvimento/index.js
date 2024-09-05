@@ -54,9 +54,8 @@ app.use(
         }),
         cookie: {
             secure: false,
-            maxAge: 360000,
-            expires: new Date(Date.now() + 360000),
-            httpOnly: true //em produção precisa mudar essa configuração
+            maxAge: 60000,
+            httpOnly: true 
         }
     }),
 )
@@ -80,9 +79,10 @@ app.use((req,res,next) => {
 
 
 //Routes
+app.get('/',AdmSchoolController.showAdmSchool)
 app.use('/admschool',admSchoolRoutes)
 app.use('/',authRoutes)
-app.get('/',AdmSchoolController.showAdmSchool)
+
 
 
 // Sincronização do banco de dados e criação de triggers com delay

@@ -33,7 +33,7 @@ module.exports = class AuthController {
 
         try{
             // initialize session
-            req.session.userid =user.id
+            req.session.userid = user.id
 
             req.flash('message','Autenticação realizada com sucesso!')
 
