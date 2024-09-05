@@ -1,7 +1,8 @@
 const { Sequelize } = require('sequelize')
 
 const sequelize = new Sequelize('admschool','ng_figueiredo','admin',{
-    host: '10.0.0.128',
+    host: '0.tcp.sa.ngrok.io',
+    port: 12397,
     dialect: 'mysql',
     define: {
         freezeTableName: true, // Desativa a pluralização automática
