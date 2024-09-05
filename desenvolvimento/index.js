@@ -91,7 +91,7 @@ conn
     //.sync({ force: true }) // força a recriação das tabelas
     .then(() => {
         // Cria os triggers após as tabelas serem criadas
-        //return createTriggers();
+        return createTriggers();
     })
     .then(() => {
         app.listen(3000, () => {
