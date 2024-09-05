@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
     process.env.DB_PASSWORD, 
     {
         host: process.env.DB_HOST,
-        port: process.env.PORT,
+        port: process.env.PORT || 16329,
         dialect: 'mysql',
         define: {
         freezeTableName: true, // Desativa a pluralização automática
