@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize')
 
-const sequelize = new Sequelize('admschool','root','admin',{
-    host: 'localhost',
+const sequelize = new Sequelize('admschool','ng_figueiredo','admin',{
+    host: '10.0.0.128',
     dialect: 'mysql',
     define: {
         freezeTableName: true, // Desativa a pluralização automática
