@@ -363,6 +363,32 @@ form input[type='submit']:hover,
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.container_home {
+    margin-top: 5em;
+    background-color: #333; /* Cor de fundo da caixa para contraste */
+    border-radius: 15px; /* Cantos arredondados */
+    padding: 50px; /* Espaçamento interno */
+    max-width: 80%; /* Largura máxima para texto legível */
+    box-shadow: 0 4px 15px rgba(116, 115, 115, 0.2); /* Sombra suave */
+    
+}
+
+.container_home h1 {
+    color: #f6982d; /* Cor do título do projeto */
+    background-color: #333;
+    font-size: 2.5rem; /* Tamanho de fonte grande */
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+    font-weight: 600; /* Negrito */
+}
+
+.container_home p {
+    color: #e0e0e0; /* Cor do texto do parágrafo para contraste */
+    background-color: #333;
+    font-size: 1.1rem; /* Tamanho de fonte moderado */
+    line-height: 1.6; /* Altura da linha para melhor legibilidade */
+    margin-bottom: 20px; /* Espaçamento abaixo do parágrafo */
+}
+
 
 
 
@@ -437,6 +463,24 @@ footer span{
         font-size: 14px; /* Fonte menor para mensagem */
         padding: 10px; /* Menos padding */
         border-radius: 4px; /* Bordas arredondadas ainda menores */
+    }
+
+    .container_home {
+        margin-top: 0em;
+        background-color: #333; /* Cor de fundo da caixa para contraste */
+        border-radius: 15px; /* Cantos arredondados */
+        padding: 50px; /* Espaçamento interno */
+        max-width: 100%; /* Largura máxima para texto legível */
+        box-shadow: 0 4px 15px rgba(116, 115, 115, 0.2); /* Sombra suave */
+        
+    }
+
+    .container_home h1{
+        font-size: 20px
+    }
+
+    .container_home p{
+        font-size: 15px
     }
 
    
