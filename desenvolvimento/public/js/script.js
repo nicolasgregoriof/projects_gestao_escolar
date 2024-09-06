@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const toggleButton = document.getElementById("menu-toggle");
     const navbar = document.getElementById("navbar");
 
+     // Certifica-se de que o menu começa fechado adicionando a classe 'retracted'
+     navbar.classList.add("retracted");
+
     toggleButton.addEventListener("click", function () {
         navbar.classList.toggle("retracted");
     });
