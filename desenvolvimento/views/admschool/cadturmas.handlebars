@@ -1,0 +1,43 @@
+<div class="auth-container">
+    <h2>Cadastro de turmas</h2>
+    <form action="/admschool/cadturmas" method="POST">
+        
+        <div class="form-control">
+            <label for="codcurso">Curso:</label>
+            <select name="codcurso" required>
+                <option value="">Selecione um curso</option>
+                {{#each cursos}}
+                    <option value="{{this.id}}">{{this.nome}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="codturma">Sufixo de classificação:</label>
+            <select name="codturma" required>
+                <option value="" disabled selected>Escolha o sufixo</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+            </select>
+        </div>
+      
+        <div class="form-control">
+            <label for="anoturma">Ano:</label>
+            <input type="number" name="anoturma" placeholder="Digite o ano" required
+             min="2000" max="9999" pattern="\d{4}" title="Digite um ano com 4 dígitos">
+        </div>
+
+
+        <div class="form-control">
+            <label for="semestredisciplina">Semestre do ano:</label>
+            <select name="semestredisciplina" required>
+                <option value="" disabled selected>Escolha o semestre</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+            </select>
+        </div>
+
+
+        <input type="submit" value="Cadastrar">
+    </form>
+</div>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdmSchool</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <!-- BOOTSTAP ICONS -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+</head>
+<body>
+    
+
+    <!-- Menu Lateral -->
+    <div id="navbar-container">
+        <!-- Menu Lateral -->
+        <nav id="navbar" class="sidebar">
+            <!-- Botão para expandir/recolher o menu -->
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            
+            <a href="/" id="logo">
+                <img src="/img/admschool_logo.png" alt="AdmSchool">
+            </a>
+            
+            <ul>
+                {{#if session.userid}}
+                    <li><a href="/">AdmSchool</a></li>
+                    <li><a href="/register">Cadastro de Usuários</a></li>
+                    <li><a href="/admschool/cadcurso">Cadastro de cursos</a></li>
+                    <li><a href="/admschool/caddisciplina">Cadastro de disciplinas</a></li>
+                    <li><a href="/admschool/cadvinculoprofessor">Vincular professor</a></li>
+                    <li><a href="/admschool/cadturmas">Cadastro de turmas</a></li>
+                    <li><a href="/admschool/cadvinculoturmas">Vincular turmas</a></li>
+                              <!-- Menu Matricular Alunos com Submenu -->
+                    <li id="submenu">
+                        <a href="javascript:void(0)" onclick="toggleSubmenu('matricula-submenu')">Matricula</a>
+                        <!-- Submenu -->
+                        <ul id="matricula-submenu" class="submenu-items">
+                            <li><a href="/admschool/cadmatriculas">Matricular alunos</a></li>
+                            <li><a href="/admschool/showmatriculas">Relatório de matrículas</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/logout">Sair</a></li>
+                {{else}}
+                    <li><a href="/login">Entrar</a></li>
+                    <li><a href="/register_adm">Registrar administrador</a></li>
+                {{/if}}
+            </ul>
+        </nav>
+        <!-- Linha Lateral -->
+        <div id="sidebar-line"></div>
+    </div>
+
+    <div class="container">
+    {{#if messages.message}}
+        <div class="message">
+            {{messages.message}}
+        </div>
+    {{/if}}
+    {{{ body }}}
+    </div>
+    <footer>
+       <p><span>AdmSchool</span> &copy; 2024</p> 
+    </footer>
+
+    <script src="/js/script.js"></script>
+
+</body>
+</html>
