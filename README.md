@@ -1,5 +1,4 @@
 # Projeto de Prática Profissional em ADS
-## Grupo: Grupo dos Devs
 
 1. Pré-requisitos
 Git instalado na máquina. Baixe o Git.
